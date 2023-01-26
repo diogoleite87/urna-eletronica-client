@@ -40,7 +40,7 @@ export const BoxNumber = styled.p`
 `
 
 export const TextPart = styled.div`
-    font-size: 3em;
+    font-size: 2.5em;
     width: 100%;
 `
 
@@ -61,11 +61,29 @@ export const ContainerImage = styled.div`
 `
 
 export const ImageCandidate = styled.img`
+    max-width: 300px;
+    max-height: 250px;
+`
 
+export const ImageSubstituteCandidate = styled.img`
+    margin-top: 20px;
+    max-width: 300px;
+    max-height: 250px;
 `
 
 export const Gif = styled.img`
     display: flex;
     align-items: center;
     justify-content: center;
+`
+
+export const NamePicture = styled.p`
+    font-size: 25px;
+`
+
+export const NumberErro = styled.p`
+    display: flex;
+    margin-top: 20px;
+    font-size: 5em;
+    text-align: center;
 `
