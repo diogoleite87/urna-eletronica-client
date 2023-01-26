@@ -61,11 +61,19 @@ export const ContainerImage = styled.div`
 `
 
 export const ImageCandidate = styled.img`
-
+    max-width: 300px;
+    max-height: 250px;
 `
 
 export const Gif = styled.img`
     display: flex;
     align-items: center;
     justify-content: center;
+`
+
+export const NumberErro = styled.p`
+    display: flex;
+    margin-top: 20px;
+    font-size: 5em;
+    text-align: center;
 `
