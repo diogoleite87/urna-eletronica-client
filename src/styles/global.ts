@@ -7,7 +7,7 @@ export default createGlobalStyle`
         padding: 0;
     }
     body {
-        background: #fafafa;
+        background: #fff;
         color: #333;
     }
 `
