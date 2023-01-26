@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { BoxNumber, Container, ContainerImage, ContainerNumber, ContainerScreen, Gif, ImageCandidate, TextCondidateType, TextPart } from "./style";
 import KeyBoard from "../../components/KeyBoard";
 import { useNavigate } from "react-router-dom";
+import { CandidateService } from "../../services/CandidateService";
+import { Candidate } from "../../schemas";
 
 
 export default function Congressman() {
@@ -9,6 +11,7 @@ export default function Congressman() {
     const [number, setNumber] = useState<string>("");
     const [name, setName] = useState<string>("");
     const [part, setPart] = useState<string>("");
+    const [candidate, setCandidate] = useState<Candidate>({} as Candidate);
 
     const navigate = useNavigate()
 
@@ -16,8 +19,26 @@ export default function Congressman() {
 
     const submit = () => {
         audioInter.play()
-        navigate('/senator')
+        navigate('/state')
     }
+
+    useEffect(() => {
+
+        if (number.length == 4) {
+
+            CandidateService.getCandidateByNumber(number).then(res => {
+                setCandidate(res.data)
+                setName(res.data.name)
+                setPart(res.data.partyNumber)
+            }).catch(err => {
+                console.log("Teste")
+            })
+        } else if (number.length == 0) {
+            setName("")
+            setPart("")
+            setCandidate({} as Candidate)
+        }
+    }, [number])
 
     return (
         <Container>
@@ -28,15 +49,15 @@ export default function Congressman() {
                     <TextPart>Número: </TextPart>
                     <BoxNumber>{number[0]}</BoxNumber>
                     <BoxNumber>{number[1]}</BoxNumber>
+                    <BoxNumber>{number[2]}</BoxNumber>
                     <BoxNumber>{number[3]}</BoxNumber>
-                    <BoxNumber>{number[4]}</BoxNumber>
                 </ContainerNumber>
 
                 {name.length != 0 ? <TextPart>Nome: {name}</TextPart> : <></>}
                 {part.length != 0 ? <TextPart>Partido: {part}</TextPart> : <></>}
             </ContainerScreen>
             <ContainerImage>
-                {name.length != 0 ? <ImageCandidate /> : <></>}
+                {name.length != 0 ? <ImageCandidate src={candidate.picture} /> : <></>}
                 {number.length == 0 ? <Gif src="../../../assets/depFederal.gif" /> : <></>}
             </ContainerImage>
             <KeyBoard state={number} setState={setNumber} submit={submit} />

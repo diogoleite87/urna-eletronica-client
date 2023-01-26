@@ -61,7 +61,8 @@ export const ContainerImage = styled.div`
 `
 
 export const ImageCandidate = styled.img`
-
+    max-width: 300px;
+    max-height: 250px;
 `
 
 export const Gif = styled.img`
