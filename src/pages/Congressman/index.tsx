@@ -1,14 +1,7 @@
 import { useEffect, useState } from "react";
-import { Container } from "./style";
+import { BoxNumber, Container, ContainerImage, ContainerNumber, ContainerScreen, Gif, ImageCandidate, TextCondidateType, TextPart } from "./style";
 import KeyBoard from "../../components/KeyBoard";
-import InputCandidate from "../../components/InputCandidate";
 
-let inputs = [
-    { number: "" },
-    { number: "" },
-    { number: "" },
-    { number: "" },
-]
 
 export default function Congressman() {
 
@@ -16,18 +9,33 @@ export default function Congressman() {
     const [name, setName] = useState<string>("");
     const [part, setPart] = useState<string>("");
 
-    useEffect(() => {
+    const [audioInter, setAudioInter] = useState(new Audio('../../../assets/inter.mp3'))
 
-        for (let index = 0; index < inputs.length; index++) {
-            inputs[index].number = number[index]
-        }
-
-    }, [number])
+    const submit = () => {
+        audioInter.play()
+    }
 
     return (
         <Container>
-            <InputCandidate candidateType={"Deputado Federal"} name={name} part={part} inputs={inputs} />
-            <KeyBoard state={number} setState={setNumber} />
+
+            <ContainerScreen>
+                <TextCondidateType>Deputado Federal</TextCondidateType>
+                <ContainerNumber>
+                    <TextPart>Número: </TextPart>
+                    <BoxNumber>{number[0]}</BoxNumber>
+                    <BoxNumber>{number[1]}</BoxNumber>
+                    <BoxNumber>{number[3]}</BoxNumber>
+                    <BoxNumber>{number[4]}</BoxNumber>
+                </ContainerNumber>
+
+                {name.length != 0 ? <TextPart>Nome: {name}</TextPart> : <></>}
+                {part.length != 0 ? <TextPart>Partido: {part}</TextPart> : <></>}
+            </ContainerScreen>
+            <ContainerImage>
+                {name.length != 0 ? <ImageCandidate /> : <></>}
+                {number.length == 0 ? <Gif src="../../../assets/depFederal.gif" /> : <></>}
+            </ContainerImage>
+            <KeyBoard state={number} setState={setNumber} submit={submit} />
         </Container>
     )
 }
