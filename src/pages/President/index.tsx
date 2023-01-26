@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BoxNumber, Container, ContainerImage, ContainerNumber, ContainerScreen, Gif, ImageCandidate, TextCondidateType, TextPart } from "./style";
 import KeyBoard from "../../components/KeyBoard";
+import { useNavigate } from "react-router-dom";
 
 export default function President() {
 
@@ -8,10 +9,13 @@ export default function President() {
     const [name, setName] = useState<string>("");
     const [part, setPart] = useState<string>("");
 
+    const navigate = useNavigate()
+
     const [audioEnd, setAudioEnd] = useState(new Audio('../../../assets/fim.mp3'))
 
     const submit = () => {
         audioEnd.play()
+        navigate('/end')
     }
 
     return (

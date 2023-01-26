@@ -1,10 +1,17 @@
 import { useState } from "react";
 import KeyBoard from "../../components/KeyBoard";
 import { Container, ContainerKeyBoard, ContainerScreen, ScreeContent, Screen } from "./style";
+import { redirect, useNavigate } from "react-router-dom";
 
 export default function Home() {
 
     const [cpf, setCpf] = useState<string>("")
+
+    const navigate = useNavigate()
+
+    const submit = () => {
+        navigate('/state')
+    }
 
     return (
         <Container>
@@ -17,7 +24,7 @@ export default function Home() {
             </ContainerScreen>
 
             <ContainerKeyBoard>
-                <KeyBoard state={cpf} setState={setCpf} />
+                <KeyBoard state={cpf} setState={setCpf} submit={submit} />
             </ContainerKeyBoard>
         </Container>
     )

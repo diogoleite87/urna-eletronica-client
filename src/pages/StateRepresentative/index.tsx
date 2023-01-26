@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { BoxNumber, Container, ContainerImage, ContainerNumber, ContainerScreen, Gif, ImageCandidate, TextCondidateType, TextPart } from "./style";
 import KeyBoard from "../../components/KeyBoard";
+import { useNavigate } from "react-router-dom";
 
 
 export default function StateRepresentative() {
@@ -9,10 +10,13 @@ export default function StateRepresentative() {
     const [name, setName] = useState<string>("");
     const [part, setPart] = useState<string>("");
 
+    const navigate = useNavigate()
+
     const [audioInter, setAudioInter] = useState(new Audio('../../../assets/inter.mp3'))
 
     const submit = () => {
         audioInter.play()
+        navigate('/congressman')
     }
 
     return (
