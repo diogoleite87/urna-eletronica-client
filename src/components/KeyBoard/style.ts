@@ -8,6 +8,7 @@ export const Container = styled.div`
     padding: 10px;
     gap: 10px;
     background: #515151;
+    border-radius: 8px;
 `
 
 export const Row = styled.div`
@@ -30,11 +31,18 @@ export const Button = styled.div`
     align-items: flex-start;
     padding: 10px;
     gap: 10px;
+    cursor: pointer;
+    border-radius: 8px;
 
     width: 25%;
     height: 50%;
 
     background: #272727;
+
+    &:hover,
+    &:focus {
+        background: #333;
+    }
 
 `
 export const RowAcctions = styled.div`
@@ -58,11 +66,18 @@ export const ButtonWhite = styled.div`
     align-items: center;
     padding: 10px;
     gap: 10px;
+    cursor: pointer;
+    border-radius: 8px;
 
     width: 30%;
     height: 40%;
 
     background: #FFFFFF;
+
+    &:hover,
+    &:focus {
+        background: #fafafa;
+    }
 `
 
 export const ButtonCorrect = styled.div`
@@ -72,11 +87,18 @@ export const ButtonCorrect = styled.div`
     align-items: center;
     padding: 10px;
     gap: 10px;
+    cursor: pointer;
+    border-radius: 8px;
 
     width: 30%;
     height: 40%;
 
     background: #DC6B03;
+
+    &:hover,
+    &:focus {
+        background: #DC8803;
+    }
 `
 
 export const ButtonConfirm = styled.div`
@@ -86,11 +108,18 @@ export const ButtonConfirm = styled.div`
     align-items: center;
     padding: 10px;
     gap: 10px;
+    cursor: pointer;
+    border-radius: 8px;
 
     width: 40%;
     height: 50%;
 
     background: #3FAF36;
+
+    &:hover,
+    &:focus {
+        background: #338F2C;
+    }
 `
 
 export const TextButtonAcctions = styled.p`
