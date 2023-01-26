@@ -1,4 +1,4 @@
 export type VoteDTO = {
     cpf: string,
-    candidateNumber: string
+    candidateNumber: number
 }
