@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BoxNumber, Container, ContainerImage, ContainerNumber, ContainerScreen, Gif, ImageCandidate, TextCondidateType, TextPart } from "./style";
+import { BoxNumber, Container, ContainerImage, ContainerNumber, ContainerScreen, Gif, ImageCandidate, NumberErro, TextCondidateType, TextPart } from "./style";
 import KeyBoard from "../../components/KeyBoard";
 import { useNavigate } from "react-router-dom";
 import { CandidateService } from "../../services/CandidateService";
@@ -12,6 +12,7 @@ export default function Congressman() {
     const [name, setName] = useState<string>("");
     const [part, setPart] = useState<string>("");
     const [candidate, setCandidate] = useState<Candidate>({} as Candidate);
+    const [numberError, setNumberError] = useState<boolean>(false)
 
     const navigate = useNavigate()
 
@@ -31,12 +32,13 @@ export default function Congressman() {
                 setName(res.data.name)
                 setPart(res.data.partyNumber)
             }).catch(err => {
-                console.log("Teste")
+                setNumberError(true)
             })
         } else if (number.length == 0) {
             setName("")
             setPart("")
             setCandidate({} as Candidate)
+            setNumberError(false)
         }
     }, [number])
 
@@ -52,7 +54,11 @@ export default function Congressman() {
                     <BoxNumber>{number[2]}</BoxNumber>
                     <BoxNumber>{number[3]}</BoxNumber>
                 </ContainerNumber>
-
+                {numberError ?
+                    <>
+                        <TextPart>NÚMERO ERRADO</TextPart>
+                        <NumberErro>VOTO NULO</NumberErro>
+                    </> : <></>}
                 {name.length != 0 ? <TextPart>Nome: {name}</TextPart> : <></>}
                 {part.length != 0 ? <TextPart>Partido: {part}</TextPart> : <></>}
             </ContainerScreen>
