@@ -1,11 +1,13 @@
+import { useState } from "react";
 import { Button, ButtonConfirm, ButtonCorrect, ButtonWhite, Container, Row, RowAcctions, NumberButton, TextButtonAcctions } from "./style";
 
 interface IKeyBoard {
     state: string
     setState(state: string): void
+    submit(): void
 }
 
-export default function KeyBoard({ state, setState }: IKeyBoard) {
+export default function KeyBoard({ state, setState, submit }: IKeyBoard) {
 
     const buttonClick = (value: string) => {
         setState(state + value)
@@ -34,7 +36,7 @@ export default function KeyBoard({ state, setState }: IKeyBoard) {
             <RowAcctions>
                 <ButtonWhite><TextButtonAcctions>BRANCO</TextButtonAcctions></ButtonWhite>
                 <ButtonCorrect onClick={() => setState("")}><TextButtonAcctions>CORRIGE</TextButtonAcctions></ButtonCorrect>
-                <ButtonConfirm><TextButtonAcctions>CONFIRMA</TextButtonAcctions></ButtonConfirm>
+                <ButtonConfirm onClick={submit}><TextButtonAcctions>CONFIRMA</TextButtonAcctions></ButtonConfirm>
             </RowAcctions>
         </Container>
     )
