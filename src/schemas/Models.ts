@@ -7,3 +7,11 @@ export type Candidate = {
     substitutePicture: string,
     partyNumber: string
 }
+
+export type Person = {
+    cpf: string,
+    name: string,
+    picture: string,
+    uf: string,
+    hasVoted: boolean
+}
