@@ -4,6 +4,7 @@ import KeyBoard from "../../components/KeyBoard";
 import { useNavigate } from "react-router-dom";
 import { CandidateService } from "../../services/CandidateService";
 import { Candidate } from "../../schemas";
+import { VoteService } from "../../services/VoteService";
 
 
 export default function StateRepresentative() {
@@ -13,14 +14,28 @@ export default function StateRepresentative() {
     const [part, setPart] = useState<string>("");
     const [candidate, setCandidate] = useState<Candidate>({} as Candidate);
     const [numberError, setNumberError] = useState<boolean>(false)
+    const [voteError, setVoteError] = useState<boolean>(false)
 
     const navigate = useNavigate()
 
     const [audioInter, setAudioInter] = useState(new Audio('../../../assets/inter.mp3'))
 
-    const submit = () => {
-        audioInter.play()
-        navigate('/senator')
+    const submit = async () => {
+
+        let cpfPerson = localStorage.getItem('urna-eletronica-cpf-person')
+
+        if (cpfPerson == null) {
+            navigate('/')
+        } else if (number.length == 5 && name.length != 0) {
+            await VoteService.postVote({ cpf: cpfPerson, candidateNumber: parseInt(number) }).then(res => {
+                audioInter.play()
+                navigate('/senator')
+            }).catch(err => {
+                setVoteError(true)
+            })
+        } else if (number.length == 5) {
+            navigate('/senator')
+        }
     }
 
     useEffect(() => {

@@ -4,6 +4,7 @@ import KeyBoard from "../../components/KeyBoard";
 import { useNavigate } from "react-router-dom";
 import { Candidate } from "../../schemas";
 import { CandidateService } from "../../services/CandidateService";
+import { VoteService } from "../../services/VoteService";
 
 export default function President() {
 
@@ -12,14 +13,34 @@ export default function President() {
     const [part, setPart] = useState<string>("");
     const [candidate, setCandidate] = useState<Candidate>({} as Candidate)
     const [numberError, setNumberError] = useState<boolean>(false)
+    const [voteError, setVoteError] = useState<boolean>(false)
 
     const navigate = useNavigate()
 
     const [audioEnd, setAudioEnd] = useState(new Audio('../../../assets/fim.mp3'))
 
-    const submit = () => {
-        audioEnd.play()
-        navigate('/end')
+    const submit = async () => {
+
+        let cpfPerson = localStorage.getItem('urna-eletronica-cpf-person')
+
+        if (cpfPerson == null) {
+            navigate('/')
+        } else if (number.length == 2 && name.length != 0) {
+            await VoteService.postVote({ cpf: cpfPerson, candidateNumber: parseInt(number) }).then(res => {
+                audioEnd.play()
+            }).catch(err => {
+                setVoteError(true)
+            })
+
+            await VoteService.hasVoted({ hasVoted: true }, cpfPerson).then(res => {
+                navigate('/end')
+            }).catch(err => {
+                setVoteError(true)
+            })
+
+        } else if (number.length == 2) {
+            navigate('/end')
+        }
     }
 
     useEffect(() => {
