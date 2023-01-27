@@ -51,3 +51,9 @@ export const ScreeContent = styled.p`
 
     color: #FFFFFF;
 `
+
+export const MsgError = styled.p`
+    color: red;
+    font-size: 1.5em;
+    margin: 10px;
+`
