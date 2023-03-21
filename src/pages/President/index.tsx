@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Candidate } from "../../schemas";
 import { CandidateService } from "../../services/CandidateService";
 import { VoteService } from "../../services/VoteService";
+import { sleep } from "../../utils/TimeSleep";
 
 export default function President() {
 
@@ -27,18 +28,22 @@ export default function President() {
             navigate('/')
         } else if (number.length == 2 && name.length != 0) {
             await VoteService.postVote({ cpf: cpfPerson, candidateNumber: parseInt(number) }).then(res => {
-                audioEnd.play()
+
             }).catch(err => {
                 setVoteError(true)
             })
 
             await VoteService.hasVoted({ hasVoted: true }, cpfPerson).then(res => {
+                audioEnd.play()
+                sleep(100)
                 navigate('/end')
             }).catch(err => {
                 setVoteError(true)
             })
 
         } else if (number.length == 2) {
+            audioEnd.play()
+            sleep(100)
             navigate('/end')
         }
     }

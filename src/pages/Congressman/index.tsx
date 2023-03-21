@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { CandidateService } from "../../services/CandidateService";
 import { Candidate } from "../../schemas";
 import { VoteService } from "../../services/VoteService";
+import { sleep } from "../../utils/TimeSleep";
 
 
 export default function Congressman() {
@@ -29,11 +30,14 @@ export default function Congressman() {
         } else if (number.length == 4 && name.length != 0) {
             await VoteService.postVote({ cpf: cpfPerson, candidateNumber: parseInt(number) }).then(res => {
                 audioInter.play()
+                sleep(100)
                 navigate('/state')
             }).catch(err => {
                 setVoteError(true)
             })
         } else if (number.length == 4) {
+            audioInter.play()
+            sleep(100)
             navigate('/state')
         }
     }
